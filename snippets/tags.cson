@@ -1,0 +1,4 @@
+'source.tags':
+  'Create Call Node':
+    'prefix': 'call'
+    'body': '[call: $1]'

@@ -1,0 +1,26 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle data-tags'
+      'command': 'data-tags:toggle'
+    }
+    {
+      'label': 'Goto Symbol'
+      'command': 'data-tags:goto'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'data-tags'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'data-tags:toggle'
+        }
+      ]
+    ]
+  }
+]

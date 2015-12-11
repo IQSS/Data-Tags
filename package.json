@@ -1,0 +1,23 @@
+{
+  "name": "data-tags",
+  "main": "./lib/data-tags",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [
+    "language",
+    "grammar"
+  ],
+  "activationCommands": {
+    "atom-text-editor": [
+      "data-tags:goto"
+    ],
+    "atom-workspace": [
+      "data-tags:toggle"
+    ]
+  },
+  "repository": "https://github.com/atom/data-tags",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
+}

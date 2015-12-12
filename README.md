@@ -1,5 +1,10 @@
 # data-tags package
 
-A short description of your package.
+DataTags IDE for Atom Editor , Version 1.0.0
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+This version include:
+  * Syntax Highlight
+  * Goto symbol(still have bugs)
+  * AutoIdent
+  * Folding expressions
+  * Added Snippets

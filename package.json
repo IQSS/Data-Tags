@@ -1,8 +1,8 @@
 {
   "name": "data-tags",
   "main": "./lib/data-tags",
-  "version": "0.0.0",
-  "description": "A short description of your package",
+  "version": "1.0.0",
+  "description": "DataTags IDE for Atom Editor",
   "keywords": [
     "language",
     "grammar"
@@ -15,7 +15,7 @@
       "data-tags:toggle"
     ]
   },
-  "repository": "https://github.com/atom/data-tags",
+  "repository": "https://github.com/galmam/data-tags.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

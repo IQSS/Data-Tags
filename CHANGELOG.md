@@ -1,3 +1,6 @@
-## 0.1.0 - First Release
-* Every feature added
-* Every bug fixed
+## 1.0.0 - First Release
+* Syntax Highlight
+* Goto symbol
+* AutoIdent
+* Folding expressions
+* Added Snippets

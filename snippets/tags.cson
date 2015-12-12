@@ -1,4 +1,87 @@
-'source.tags':
+'.source.tags':
   'Create Call Node':
     'prefix': 'call'
     'body': '[call: $1]'
+
+  'Create Simple Ask Node':
+    'prefix': 'ask'
+    'body' : """
+      [>$1< ask:
+        {text: $2}
+        {terms: $3}
+        {answers:
+          $4
+        }
+      ]
+      """
+  'Create Yes No Ask Node':
+    'prefix': 'ask_yes_no'
+    'body' : """
+      [>$1< ask:
+        {text: $2}
+        {terms: $3}
+        {answers:
+          {yes: $4}
+          {no: $5}
+        }
+      ]
+      """
+
+  'Create Set Node':
+    'prefix': 'set'
+    'body': '[set: $1]'
+
+  'Create TODO Node':
+    'prefix': 'todo'
+    'body': '[todo: $1]'
+
+  'Create End Node':
+    'prefix': 'end'
+    'body': '[end]'
+
+  'Create Reject Node':
+    'prefix': 'reject'
+    'body': '[reject: $1]'
+
+  'Compound Slot Definition With Notes':
+    'prefix':   'compound_slot_w_notes'
+    'body':   '${1:name} [${2:note}] : consists of  ${3:slot1} , ${4:slot2} , ${5:slot3}.'
+
+
+  'Compound Slot Definition Without Notes':
+    'prefix':   'compound_slot'
+    'body': '${1:name} : consists of ${2:slot1} , ${3:slot2} , ${4:slot3}.'
+
+  'Atomic Slot Definition With Notes':
+    'prefix':   'atomic_slot_with_notes'
+    'body':   """
+      ${1:name} [${2:note}] : one of
+        ${3:slot1}  [${4:note_slot1}],
+        ${5:slot2}  [${6:note_slot2}],
+        ${7:slot3}  [${8:note_slot3}].
+    """
+
+  'Atomic Slot Definition Without Notes':
+    'prefix':   'atomic_slot'
+    'body': '${1:name} : one of ${2:slot1} , ${3:slot2} , ${4:slot3}.'
+
+  'Aggregate Slot Definition With Notes':
+    'prefix':   'aggregate_slot_with_notes'
+    'body':   """
+      ${1:name} [${2:note}] : some of
+        ${3:slot1}  [${4:note_slot1}],
+        ${5:slot2}  [${6:note_slot2}],
+        ${7:slot3}  [${8:note_slot3}].
+    """
+
+  'Aggregate Slot Definition Without Notes':
+    'prefix':   'aggregate_slot'
+    'body': '${1:name} : some of ${2:slot1} , ${3:slot2} , ${4:slot3}.'
+
+  'Comment':
+    'prefix': 'comment'
+    'body' :  '<* ${1:comment} *>'
+
+  'Create Sub Node':
+    'prefix': 'sub'
+    'body' : '{${1:name} : ${2:content}}'

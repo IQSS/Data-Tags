@@ -67,7 +67,8 @@ module.exports = class Goto
   isSymbol : (token) ->
     resym = /// ^ (
       entity.name.tag.tags.slot|
-      markup.italic.tags.var
+      markup.italic.tags.var|
+      constant.character.escape.tags
       ) ///
     if token.value.trim().length and token.scopes
       for scope in token.scopes
@@ -78,7 +79,6 @@ module.exports = class Goto
   matchSymbol: (word, symbols) ->
     if symbols
       for symbol in symbols
-        console.log "#{symbol.name}?=#{word}"
         if symbol.name is word
           return symbol
 

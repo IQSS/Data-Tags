@@ -41,7 +41,7 @@
     'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(reject)(\\s*)(:)'
     'beginCaptures':
       '5':
-        'name' : 'declaration.section entity.name.section.tags'
+        'name' : 'constant.character.escape.tags'
       '8':
         'name' : 'string.other.tags'
     'end' : '\\]'
@@ -52,7 +52,7 @@
     'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(ask)( *)(:)'
     'beginCaptures':
       '5':
-        'name' : 'declaration.section entity.name.section.tags'
+        'name' : 'constant.character.escape.tags'
       '8':
         'name' : 'string.other.tags'
     'end' : '\\]'
@@ -77,7 +77,7 @@
     'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(todo)( *)(:)'
     'beginCaptures':
       '5':
-        'name' : 'declaration.section entity.name.section.tags'
+        'name' : 'constant.character.escape.tags'
       '8':
         'name' : 'string.other.tags'
     'end' : '\\]'
@@ -157,7 +157,7 @@
     'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(set)( *)(:)'
     'beginCaptures':
       '5':
-        'name' : 'declaration.section entity.name.section.tags'
+        'name' : 'constant.character.escape.tags'
       '8':
         'name' : 'string.other.tags'
     'end' : '\\]'

@@ -2,12 +2,16 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle data-tags'
-      'command': 'data-tags:toggle'
+      'label': 'Show DataTags Panel'
+      'command': 'data-tags:ShowPanel'
     }
     {
       'label': 'Goto Symbol'
       'command': 'data-tags:goto'
+    }
+    {
+      'label' : 'Show Description'
+      'command' : 'data-tags:show-desc'
     }
   ]
 'menu': [

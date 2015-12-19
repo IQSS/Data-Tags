@@ -9,10 +9,11 @@
   ],
   "activationCommands": {
     "atom-text-editor": [
-      "data-tags:goto"
+      "data-tags:goto",
+      "data-tags:show-desc"
     ],
     "atom-workspace": [
-      "data-tags:toggle"
+      "data-tags:ShowPanel"
     ]
   },
   "repository": "https://github.com/galmam/data-tags.git",

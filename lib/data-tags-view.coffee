@@ -1,22 +1,41 @@
+{CompositeDisposable} = require 'atom'
+
+
+
 module.exports =
 class DataTagsView
   constructor: (serializedState) ->
     # Create root element
-    #@element = document.createElement('div')
-    #@element.classList.add('data-tags')
+    @element = document.createElement('div')
+    @element.classList.add('data-tags')
 
     # Create message element
-    #message = document.createElement('div')
-    #message.textContent = "The DataTags package is Alive! It's ALIVE!"
-    #message.classList.add('message')
-    #@element.appendChild(message)
+    @symbol_name = document.createElement('div')
+    @symbol_name.textContent = ""
+    @symbol_name.classList.add('symbol-name')
+    @element.appendChild(@symbol_name)
+
+    @desc = document.createElement('div')
+    @desc.textContent = "Hightlight a symbol to see his description"
+    @desc.classList.add('symbol-name')
+    @element.appendChild(@desc)
+
+    console.log @element
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
 
   # Tear down any state and detach
   destroy: ->
+    @subscriptions.dispose()
     @element.remove()
+    @symbol_name.remove()
+    @desc.remove()
 
   getElement: ->
     @element
+
+  setMessage: (symbol,desc) ->
+    @symbol_name.textContent = "Description for : "+symbol
+    @desc.textContent = desc
+    console.log @element

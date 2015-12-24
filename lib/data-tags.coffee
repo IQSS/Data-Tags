@@ -1,11 +1,10 @@
 DataTagsView = require './data-tags-view'
 {CompositeDisposable} = require 'atom'
 Symbols = require './symbols'
-
+{Emitter} = require 'atom'
 
 module.exports = DataTags =
   dataTagsView: null
-  modalPanel: null
   subscriptions: null
   symbols: null
 
@@ -20,33 +19,46 @@ module.exports = DataTags =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace',
     {
-      'data-tags:ShowPanel': => @ShowPanel()
+      'data-tags:toggle' : => @toggle()
       'data-tags:goto' : => @gotosymbol()
       'data-tags:show-desc': => @showDescription()
     }
 
+    #@emitter.on 'selection:changed' , => console.log "shit"
+    atom.workspace.observeTextEditors (editor) =>
+      @subscriptions.add editor.onDidChangeSelectionRange (event) =>
+          word = event.selection.getText()
+          if !!word
+            start= event.selection.getBufferRange().start
+            scopes = atom.workspace.getActiveTextEditor().scopeDescriptorForBufferPosition(start).scopes
+            scope = scopes[scopes.length-1]
+            console.log scopes
+            if scope in ['entity.name.tag.tags.ass.left','markup.italic.tags.ass.right']
+              desc =@symbols.getDesc(word)
+              @dataTagsView.setMessage(word,desc)
+              @Panel.show()
+            else @Panel.hide()
+          else @Panel.hide()
+      @subscriptions.add editor.onDidStopChanging (event) =>
+        console.log event
+  toggle: ->
+    console.log "DataTags was activated"
 
   deactivate: ->
     @Panel.destroy()
+    @symbols.destroy()
     @subscriptions.dispose()
     @dataTagsView.destroy()
 
   serialize: ->
     dataTagsViewState: @dataTagsView.serialize()
 
-  ShowPanel: ->
-    console.log 'DataTags was toggled!'
-    if @Panel.isVisible()
-      @Panel.hide()
-    else
-      @Panel.show()
-
   gotosymbol: ->
     word = @getWord()
     console.log "searching for symbol #{word}"
     #TBD valid data checks
-    @symbols.generateSymbolsListsInProject()
-    matched_symbol = @symbol.matchSymbol(word)
+    if @symbols.invalid then @symbols.generateSymbolsListsInProject()
+    matched_symbol = @symbols.matchSymbol(word)
     if matched_symbol then @showInEditor(matched_symbol)
 
   showInEditor : (symbol) ->
@@ -57,14 +69,10 @@ module.exports = DataTags =
     editor.selectToEndOfWord()
 
   showDescription: ->
-    console.log 'showDescription was toggled!'
     if @Panel.isVisible()
       @Panel.hide()
     else
       @Panel.show()
-    symbol = @getWord()
-    desc =@symbols.getDesc(symbol)
-    @dataTagsView.setMessage(symbol,desc)
 
   getWord: ->
     editor = atom.workspace.getActiveTextEditor()

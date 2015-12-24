@@ -7,6 +7,8 @@ module.exports = class Symbols
   constructor: ->
     @slots_symbols = []
     @nodes_symbols= []
+    @invalid = true
+    @generateSymbolsListsInProject()
 
   generateSymbolsListsInProject: ->
     @slots_symbols = []
@@ -16,6 +18,7 @@ module.exports = class Symbols
       dir_path= dir.getRealPathSync()
       console.log "dir path:#{dir_path}"
       @processDirectory dir_path
+    @invalid =false
 
   processDirectory: (dirPath) ->
     entries = FS.readdirSync(dirPath)
@@ -42,7 +45,7 @@ module.exports = class Symbols
         if @isSlotSymbol(token)
           symbol = @cleanSymbol(token)
           if symbol
-            @slots_symbols.push({ name: token.value, path: path, position: new Point(lineno, offset), desc: ""})
+            @slots_symbols.push({ name: token.value, path: path, position: new Point(lineno, offset), desc: "There is no Description"})
         else if @isNodeSymbol(token)
           symbol = @cleanSymbol(token)
           if symbol
@@ -62,7 +65,7 @@ module.exports = class Symbols
 
   isSlotSymbol : (token) ->
     resym = /// ^ (
-      entity.name.tag.tags.slot|
+      entity.name.tag.tags.slot.def|
       markup.italic.tags.var
       ) ///
     if token.value.trim().length and token.scopes
@@ -103,7 +106,12 @@ module.exports = class Symbols
 
   getDesc: (symbol) ->
     console.log "Searching description for #{symbol}"
-    @generateSymbolsListsInProject()
+    if @invalid then @generateSymbolsListsInProject()
     matched_symbol = @matchSymbol(symbol)
-    console.log matched_symbol
-    matched_symbol.desc
+    if matched_symbol?
+      matched_symbol.desc
+    else
+      "There is Description for #{symbol}"
+
+  invalidate: ->
+    @invalid=true

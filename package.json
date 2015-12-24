@@ -8,12 +8,8 @@
     "grammar"
   ],
   "activationCommands": {
-    "atom-text-editor": [
-      "data-tags:goto",
-      "data-tags:show-desc"
-    ],
     "atom-workspace": [
-      "data-tags:ShowPanel"
+      "data-tags:toggle"
     ]
   },
   "repository": "https://github.com/galmam/data-tags.git",

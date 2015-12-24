@@ -5,7 +5,8 @@
 #'foldingStopMarker' : '^\s*\}'
 'patterns':[
   {'include' : "#line_comment"}
-  {'include' : '#Slot'}
+  {'include' : '#compoundSlot'}
+  {'include' : '#AtomicSlot'}
   {'include' : '#multiline_comment'}
   {'include' : '#set_node'}
   {'include' : '#call_node'}
@@ -17,25 +18,55 @@
 
   'keyword':
     'name' : 'string.other.tags'
-    'match' : '(some of|one of|consists of|TODO|todo)'
+    'match' : '(some of|one of|TODO|todo)'
 
-  'Slot':
-    'name' : 'source.tags.compoundSlot'
-    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)'
+  'AtomicSlot':
+    'name' : 'source.tags.slot.atomic'
+    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)(\\s*)(some of|one of|TODO|todo)'
     'beginCaptures':
       '1':
-        'name' : 'entity.name.tag.tags.slot'
+        'name' : 'entity.name.tag.tags.slot.def'
       '3':
         'name'  : 'source.tags.note.content'
+      '7':
+        'name' : 'string.other.tags.keyword'
     'end' : '(\\.)'
     'endCaptures':
       '1':
         'name' : 'constant.character.escape.tags'
     'patterns':[
-      {'include'  : '#keyword'}
+      {
+        'name' : 'markup.italic.tags.var'
+        'match' : '([A-Za-z0-9_]+)'
+      }
       {'include'  : '#multiline_comment'}
       {'include'  : '#note'}
-      {'include'  : '#variable'}
+    ]
+
+
+  'compoundSlot':
+    'name' : 'source.tags.slot.compound'
+    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)(\\s*)(consists of)'
+    'beginCaptures':
+      '1':
+        'name' : 'entity.name.tag.tags.slot.def'
+      '3':
+        'name'  : 'source.tags.note.content'
+      '7':
+        'name' : 'string.other.tags.keyword'
+    'end' : '(\\.)'
+    'endCaptures':
+      '1':
+        'name' : 'constant.character.escape.tags'
+    'patterns':[
+      {'include'  : '#multiline_comment'}
+      {
+        'name' : 'entity.name.tag.tags.slot'
+        'match' :  '([a-zA-Z0-9_/]+)'
+        'captures':
+          '1':
+            'name': 'entity.name.tag.tags.slot'
+      }
     ]
 
   'reject_node':
@@ -179,16 +210,16 @@
 
   'assigment':
     'name' : 'source.tags.assigment'
-    'match' : '([a-zA-Z0-9_/]+)(=|\\+=)([a-zA-Z0-9_/]+)'
+    'match' : '([a-zA-Z0-9_/]+)(\\s*)(=|\\+=)(\\s*)([a-zA-Z0-9_/]+)'
     'captures':
       '1':
-        'name' : 'entity.name.tag.tags'
-      '3':
-        'name' : 'markup.italic.tags'
+        'name' : 'entity.name.tag.tags.ass.left'
+      '5':
+        'name' : 'markup.italic.tags.ass.right'
 
   'variable':
     'name' : 'markup.italic.tags.var'
-    'match' : '([a-zA-Z0-9_/]+)'
+    'match' : '([a-zA-Z0-9_]+)'
 
   'note':
     'name': 'source.tags.note'

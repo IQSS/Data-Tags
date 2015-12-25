@@ -27,9 +27,13 @@
       ]
       """
 
-  'Create Set Node':
+  'Create Set Node With \+':
     'prefix': 'set'
-    'body': '[set: $1]'
+    'body': '[set: ${1:slot} + ${2:value}]'
+
+  'Create Set Node With \+=':
+    'prefix': 'set'
+    'body': '[set: ${1:slot} += ${2:value}]'
 
   'Create TODO Node':
     'prefix': 'todo'

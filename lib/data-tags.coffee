@@ -2,6 +2,9 @@ DataTagsView = require './data-tags-view'
 {CompositeDisposable} = require 'atom'
 Symbols = require './symbols'
 {Emitter} = require 'atom'
+MyList = require './auto_complete_list_view'
+ListView = require './custom_list_view'
+SlotsProvider = require './auto_complete_provider'
 
 module.exports = DataTags =
   dataTagsView: null
@@ -12,6 +15,7 @@ module.exports = DataTags =
     @symbols = new Symbols
     @dataTagsView = new DataTagsView(state.dataTagsViewState)
     @Panel = atom.workspace.addBottomPanel(item: @dataTagsView.getElement(),visible: false)
+    @provider = new SlotsProvider(@symbols)
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -21,7 +25,7 @@ module.exports = DataTags =
     {
       'data-tags:toggle' : => @toggle()
       'data-tags:goto' : => @gotosymbol()
-      'data-tags:show-desc': => @showDescription()
+      'data-tags:show-desc': => @showDescriptionPanel()
     }
 
     #@emitter.on 'selection:changed' , => console.log "shit"
@@ -32,7 +36,6 @@ module.exports = DataTags =
             start= event.selection.getBufferRange().start
             scopes = atom.workspace.getActiveTextEditor().scopeDescriptorForBufferPosition(start).scopes
             scope = scopes[scopes.length-1]
-            console.log scopes
             if scope in ['entity.name.tag.tags.ass.left','markup.italic.tags.ass.right']
               desc =@symbols.getDesc(word)
               @dataTagsView.setMessage(word,desc)
@@ -40,7 +43,8 @@ module.exports = DataTags =
             else @Panel.hide()
           else @Panel.hide()
       @subscriptions.add editor.onDidStopChanging (event) =>
-        console.log event
+        @symbols.invalidate()
+
   toggle: ->
     console.log "DataTags was activated"
 
@@ -55,9 +59,7 @@ module.exports = DataTags =
 
   gotosymbol: ->
     word = @getWord()
-    console.log "searching for symbol #{word}"
-    #TBD valid data checks
-    if @symbols.invalid then @symbols.generateSymbolsListsInProject()
+    #console.log "searching for symbol #{word}"
     matched_symbol = @symbols.matchSymbol(word)
     if matched_symbol then @showInEditor(matched_symbol)
 
@@ -68,7 +70,7 @@ module.exports = DataTags =
     console.log symbol
     editor.selectToEndOfWord()
 
-  showDescription: ->
+  showDescriptionPanel: ->
     if @Panel.isVisible()
       @Panel.hide()
     else
@@ -84,3 +86,6 @@ module.exports = DataTags =
     #symbol_scope=editor.getCursorBufferPositions()[0]
     console.log symbol_scope
     word
+
+  provide: ->
+    @provider

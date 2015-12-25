@@ -7,12 +7,14 @@ module.exports = class Symbols
   constructor: ->
     @slots_symbols = []
     @nodes_symbols= []
+    @value_symbols=[]
     @invalid = true
     @generateSymbolsListsInProject()
 
   generateSymbolsListsInProject: ->
     @slots_symbols = []
     @nodes_symbols= []
+    @value_symbols=[]
     project_dirs = atom.project.getDirectories()
     for dir in project_dirs
       dir_path= dir.getRealPathSync()
@@ -31,13 +33,17 @@ module.exports = class Symbols
           @processFile(filePath)
 
   processFile: (filePath) ->
-    text = FS.readFileSync(filePath, { encoding: 'utf8' })
+    for editor in atom.workspace.getTextEditors()
+      if editor.getPath() == filePath
+        text = editor.getText()
+      else
+        text = FS.readFileSync(filePath, { encoding: 'utf8' })
     grammar = atom.grammars.selectGrammar(filePath, text)
     @getAllSymbolsFromFile(filePath, grammar, text)
 
   getAllSymbolsFromFile:(path,grammar,text) ->
     lines   = grammar.tokenizeLines(text)
-    prev_is_symbol =false
+    last_symbols_used= null
     for tokens, lineno in lines
       offset = 0
       for token in tokens
@@ -45,15 +51,26 @@ module.exports = class Symbols
         if @isSlotSymbol(token)
           symbol = @cleanSymbol(token)
           if symbol
-            @slots_symbols.push({ name: token.value, path: path, position: new Point(lineno, offset), desc: "There is no Description"})
+            @slots_symbols.push({ name: token.value, path: path, position: new Point(lineno, offset), desc: "There is no Description" ,values: []})
+            last_symbols_used =@slots_symbols
+
+        else if @isValueSymbol(token)
+          symbol = @cleanSymbol(token)
+          if symbol
+            element = { name: token.value, path: path, position: new Point(lineno, offset), desc: "There is no Description"}
+            @value_symbols.push(element)
+            @slots_symbols[@slots_symbols.length-1].values.push(element)
+            last_symbols_used =@value_symbols
+
         else if @isNodeSymbol(token)
           symbol = @cleanSymbol(token)
           if symbol
             @nodes_symbols.push({ name: token.value, path: path, position: new Point(lineno, offset)})
+            last_symbols_used =@nodes_symbols
 
         else if @isDesc(token)
           #console.log "found a desc"
-          @slots_symbols[@slots_symbols.length-1].desc=token.value
+          last_symbols_used[last_symbols_used.length-1].desc=token.value
           #console.log @slots_symbols[@slots_symbols.length-1]
 
         offset += token.value.length
@@ -63,10 +80,19 @@ module.exports = class Symbols
     name = token.value.trim().replace(/"/g, '')
     name || null
 
+  isValueSymbol : (token) ->
+    resym = /// ^ (
+      markup.italic.tags.var
+      ) ///
+    if token.value.trim().length and token.scopes
+      for scope in token.scopes
+        if resym.test(scope)
+          return true
+    return false
+
   isSlotSymbol : (token) ->
     resym = /// ^ (
-      entity.name.tag.tags.slot.def|
-      markup.italic.tags.var
+      entity.name.tag.tags.slot.def
       ) ///
     if token.value.trim().length and token.scopes
       for scope in token.scopes
@@ -95,6 +121,7 @@ module.exports = class Symbols
     return false
 
   matchSymbol: (word) ->
+    if @invalid then @symbols.generateSymbolsListsInProject()
     if @slots_symbols
       for symbol in @slots_symbols
         if symbol.name is word
@@ -103,10 +130,13 @@ module.exports = class Symbols
       for symbol in @nodes_symbols
         if symbol.name is word
           return symbol
+    if @value_symbols
+      for symbol in @value_symbols
+        if symbol.name is word
+          return symbol
 
   getDesc: (symbol) ->
-    console.log "Searching description for #{symbol}"
-    if @invalid then @generateSymbolsListsInProject()
+    #console.log "Searching description for #{symbol}"
     matched_symbol = @matchSymbol(symbol)
     if matched_symbol?
       matched_symbol.desc
@@ -115,3 +145,15 @@ module.exports = class Symbols
 
   invalidate: ->
     @invalid=true
+
+  getNodeSymbols: ->
+    if @invalid then @generateSymbolsListsInProject()
+    @nodes_symbols
+
+  getSlotsSymbols: ->
+    if @invalid then @generateSymbolsListsInProject()
+    @slots_symbols
+
+  getSlotValueSymbols: ->
+    if @invalid then @generateSymbolsListsInProject()
+    @value_symbols

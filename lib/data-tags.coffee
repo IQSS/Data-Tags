@@ -2,8 +2,7 @@ DataTagsView = require './data-tags-view'
 {CompositeDisposable} = require 'atom'
 Symbols = require './symbols'
 {Emitter} = require 'atom'
-MyList = require './auto_complete_list_view'
-ListView = require './custom_list_view'
+NodesSymbolsListView = require './nodes_symbols_list_view'
 SlotsProvider = require './auto_complete_provider'
 
 module.exports = DataTags =
@@ -15,6 +14,8 @@ module.exports = DataTags =
     @symbols = new Symbols
     @dataTagsView = new DataTagsView(state.dataTagsViewState)
     @Panel = atom.workspace.addBottomPanel(item: @dataTagsView.getElement(),visible: false)
+    @Console = atom.workspace.addBottomPanel(item: @dataTagsView.getConsoleView(),visible: true)
+
     @provider = new SlotsProvider(@symbols)
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
@@ -26,6 +27,7 @@ module.exports = DataTags =
       'data-tags:toggle' : => @toggle()
       'data-tags:goto' : => @gotosymbol()
       'data-tags:show-desc': => @showDescriptionPanel()
+      'data-tags:show_node': => @createNodeSymbolListView().toggle()
     }
 
     #@emitter.on 'selection:changed' , => console.log "shit"
@@ -45,6 +47,16 @@ module.exports = DataTags =
       @subscriptions.add editor.onDidStopChanging (event) =>
         @symbols.invalidate()
 
+    @subscriptions.add atom.project.onDidChangePaths( (path)->DataTags.symbols.invalidate())
+
+
+
+  createNodeSymbolListView: ->
+    unless @NodesSymbolsListView?
+      NodesSymbolsListView = require './nodes_symbols_list_view'
+      @NodesSymbolsListView =new NodesSymbolsListView(@symbols)
+    @NodesSymbolsListView
+
   toggle: ->
     console.log "DataTags was activated"
 
@@ -57,18 +69,18 @@ module.exports = DataTags =
   serialize: ->
     dataTagsViewState: @dataTagsView.serialize()
 
+  ShowNodesList: ->
+    console.log "show node was toggled"
+    #if !@NodesSymbolsListView.panel.isVisible
+    @NodesSymbolsListView.panel.show()
+
+
   gotosymbol: ->
     word = @getWord()
     #console.log "searching for symbol #{word}"
     matched_symbol = @symbols.matchSymbol(word)
-    if matched_symbol then @showInEditor(matched_symbol)
+    if matched_symbol then @symbols.showInEditor(matched_symbol)
 
-  showInEditor : (symbol) ->
-    options = {initialLine : symbol.position.row , initialColumn : symbol.position.column}
-    atom.workspace.open(symbol.path,options)
-    editor = atom.workspace.getActiveTextEditor()
-    console.log symbol
-    editor.selectToEndOfWord()
 
   showDescriptionPanel: ->
     if @Panel.isVisible()

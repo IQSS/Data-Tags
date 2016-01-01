@@ -20,7 +20,12 @@ class DataTagsView
     @desc.classList.add('symbol-name')
     @element.appendChild(@desc)
 
-    console.log @element
+
+    @conslole_element= document.createElement('div')
+    @conslole_element.classList.add('console-view')
+    @conslole_element.style.backgroundColor="black"
+    @conslole_element.style.height = "250px"
+    #console.log @element
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
@@ -35,7 +40,13 @@ class DataTagsView
   getElement: ->
     @element
 
+  getConsoleView: ->
+    @conslole_element
+
   setMessage: (symbol,desc) ->
     @symbol_name.textContent = "Description for : "+symbol
     @desc.textContent = desc
-    console.log @element
+    #console.log @element
+
+  setConsoleMessaga: (msg) ->
+    @conslole_element.textContent = msg

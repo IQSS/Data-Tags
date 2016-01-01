@@ -48,13 +48,13 @@ module.exports = class Symbols
       offset = 0
       for token in tokens
 
-        if @isSlotSymbol(token)
+        if @isSlotSymbol(token,path)
           symbol = @cleanSymbol(token)
           if symbol
             @slots_symbols.push({ name: token.value, path: path, position: new Point(lineno, offset), desc: "There is no Description" ,values: []})
             last_symbols_used =@slots_symbols
 
-        else if @isValueSymbol(token)
+        else if @isValueSymbol(token,path)
           symbol = @cleanSymbol(token)
           if symbol
             element = { name: token.value, path: path, position: new Point(lineno, offset), desc: "There is no Description"}
@@ -62,13 +62,14 @@ module.exports = class Symbols
             @slots_symbols[@slots_symbols.length-1].values.push(element)
             last_symbols_used =@value_symbols
 
-        else if @isNodeSymbol(token)
+        else if @isNodeSymbol(token,path)
           symbol = @cleanSymbol(token)
           if symbol
+            #console.log "found node #{token.value} in [#{lineno},#{offset}] in file #{path}"
             @nodes_symbols.push({ name: token.value, path: path, position: new Point(lineno, offset)})
             last_symbols_used =@nodes_symbols
 
-        else if @isDesc(token)
+        else if @isDesc(token,path)
           #console.log "found a desc"
           last_symbols_used[last_symbols_used.length-1].desc=token.value
           #console.log @slots_symbols[@slots_symbols.length-1]
@@ -80,40 +81,48 @@ module.exports = class Symbols
     name = token.value.trim().replace(/"/g, '')
     name || null
 
-  isValueSymbol : (token) ->
+  isValueSymbol : (token,filePath) ->
     resym = /// ^ (
       markup.italic.tags.var
       ) ///
+    if PATH.extname(filePath) != ".ts"
+      return false
     if token.value.trim().length and token.scopes
       for scope in token.scopes
         if resym.test(scope)
           return true
     return false
 
-  isSlotSymbol : (token) ->
+  isSlotSymbol : (token,filePath) ->
     resym = /// ^ (
       entity.name.tag.tags.slot.def
       ) ///
+    if PATH.extname(filePath) != ".ts"
+      return false
     if token.value.trim().length and token.scopes
       for scope in token.scopes
         if resym.test(scope)
           return true
     return false
 
-  isNodeSymbol : (token) ->
+  isNodeSymbol : (token,filePath) ->
     resym = /// ^ (
       constant.character.escape.tags
       ) ///
+    if PATH.extname(filePath) != ".dg"
+      return false
     if token.value.trim().length and token.scopes
       for scope in token.scopes
         if resym.test(scope)
           return true
     return false
 
-  isDesc : (token) ->
+  isDesc : (token,filePath) ->
     resym = /// ^ (
       source.tags.note.content
       ) ///
+    if PATH.extname(filePath) != ".ts"
+      return false
     if token.value.trim().length and token.scopes
       for scope in token.scopes
         if resym.test(scope)
@@ -144,6 +153,7 @@ module.exports = class Symbols
       "There is Description for #{symbol}"
 
   invalidate: ->
+    console.log "symbols are now invalid"
     @invalid=true
 
   getNodeSymbols: ->
@@ -157,3 +167,10 @@ module.exports = class Symbols
   getSlotValueSymbols: ->
     if @invalid then @generateSymbolsListsInProject()
     @value_symbols
+
+  showInEditor : (symbol) ->
+    options = {initialLine : symbol.position.row , initialColumn : symbol.position.column}
+    atom.workspace.open(symbol.path,options)
+    editor = atom.workspace.getActiveTextEditor()
+    #console.log symbol
+    editor.selectToEndOfWord()

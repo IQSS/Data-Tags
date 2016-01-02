@@ -8,6 +8,8 @@ module.exports = class Symbols
     @slots_symbols = []
     @nodes_symbols= []
     @value_symbols=[]
+    @DesicionGraphPath=''
+    @TagSpacePath=''
     @invalid = true
     @generateSymbolsListsInProject()
 
@@ -18,7 +20,7 @@ module.exports = class Symbols
     project_dirs = atom.project.getDirectories()
     for dir in project_dirs
       dir_path= dir.getRealPathSync()
-      console.log "dir path:#{dir_path}"
+      #console.log "dir path:#{dir_path}"
       @processDirectory dir_path
     @invalid =false
 
@@ -29,8 +31,12 @@ module.exports = class Symbols
       stats = FS.statSync(filePath)
       if stats.isFile()
         ext = PATH.extname(filePath)
-        if ext in ['.ts','.dg']
+        if ext == '.ts'
           @processFile(filePath)
+          @TagSpacePath = filePath
+        if ext == '.dg'
+          @processFile(filePath)
+          @DesicionGraphPath = filePath
 
   processFile: (filePath) ->
     for editor in atom.workspace.getTextEditors()
@@ -130,7 +136,7 @@ module.exports = class Symbols
     return false
 
   matchSymbol: (word) ->
-    if @invalid then @symbols.generateSymbolsListsInProject()
+    if @invalid then @generateSymbolsListsInProject()
     if @slots_symbols
       for symbol in @slots_symbols
         if symbol.name is word

@@ -4,6 +4,9 @@ Symbols = require './symbols'
 {Emitter} = require 'atom'
 NodesSymbolsListView = require './nodes_symbols_list_view'
 SlotsProvider = require './auto_complete_provider'
+{TextEditor} = require 'atom'
+{TextEditorView} = require 'atom-space-pen-views'
+ConsoleView = require './console_view'
 
 module.exports = DataTags =
   dataTagsView: null
@@ -14,8 +17,6 @@ module.exports = DataTags =
     @symbols = new Symbols
     @dataTagsView = new DataTagsView(state.dataTagsViewState)
     @Panel = atom.workspace.addBottomPanel(item: @dataTagsView.getElement(),visible: false)
-    @Console = atom.workspace.addBottomPanel(item: @dataTagsView.getConsoleView(),visible: true)
-
     @provider = new SlotsProvider(@symbols)
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
@@ -26,8 +27,8 @@ module.exports = DataTags =
     {
       'data-tags:toggle' : => @toggle()
       'data-tags:goto' : => @gotosymbol()
-      'data-tags:show-desc': => @showDescriptionPanel()
       'data-tags:show_node': => @createNodeSymbolListView().toggle()
+      'data-tags:open-cli' : =>@OpenCLIPanel()
     }
 
     #@emitter.on 'selection:changed' , => console.log "shit"
@@ -47,9 +48,18 @@ module.exports = DataTags =
       @subscriptions.add editor.onDidStopChanging (event) =>
         @symbols.invalidate()
 
-    @subscriptions.add atom.project.onDidChangePaths( (path)->DataTags.symbols.invalidate())
+    @subscriptions.add atom.project.onDidChangePaths( (path)->DataTags.symbols.generateSymbolsListsInProject())
 
-
+  OpenCLIPanel: ->
+    console.log "CLI panel was toggeld"
+    if (not @symbols.TagSpacePath?.length) and (not @symbols.DesicionGraphPath?.length)
+      atom.notifications.addError("Invaliad Project Direcotry", dismissable: true ,detail: "Current Prjoect Direcotry doesn't contain a .TS or .DG file")
+      return
+    if @ConsoleView?
+      @ConsoleView.destroy()
+      @ConsoleView=null
+    else
+      @ConsoleView =new ConsoleView(@symbols)
 
   createNodeSymbolListView: ->
     unless @NodesSymbolsListView?
@@ -65,6 +75,7 @@ module.exports = DataTags =
     @symbols.destroy()
     @subscriptions.dispose()
     @dataTagsView.destroy()
+    @ConsoleView.destroy()
 
   serialize: ->
     dataTagsViewState: @dataTagsView.serialize()

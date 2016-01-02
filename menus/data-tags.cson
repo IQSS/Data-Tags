@@ -2,27 +2,23 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Show DataTags Panel'
-      'command': 'data-tags:ShowPanel'
-    }
-    {
       'label': 'Goto Symbol'
       'command': 'data-tags:goto'
-    }
-    {
-      'label' : 'Show Description'
-      'command' : 'data-tags:show-desc'
     }
   ]
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'data-tags'
+      'label': 'DataTags'
       'submenu': [
         {
-          'label': 'Toggle'
+          'label': 'Toggle Package'
           'command': 'data-tags:toggle'
+        }
+        {
+          'label': 'Toggle CLI Panel'
+          'command': 'data-tags:open-cli'
         }
       ]
     ]

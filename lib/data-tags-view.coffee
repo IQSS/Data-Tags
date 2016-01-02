@@ -21,18 +21,11 @@ class DataTagsView
     @element.appendChild(@desc)
 
 
-    @conslole_element= document.createElement('div')
-    @conslole_element.classList.add('console-view')
-    @conslole_element.style.backgroundColor="black"
-    @conslole_element.style.height = "250px"
-    #console.log @element
-
   # Returns an object that can be retrieved when package is activated
   serialize: ->
 
   # Tear down any state and detach
   destroy: ->
-    @subscriptions.dispose()
     @element.remove()
     @symbol_name.remove()
     @desc.remove()
@@ -40,13 +33,6 @@ class DataTagsView
   getElement: ->
     @element
 
-  getConsoleView: ->
-    @conslole_element
-
   setMessage: (symbol,desc) ->
     @symbol_name.textContent = "Description for : "+symbol
     @desc.textContent = desc
-    #console.log @element
-
-  setConsoleMessaga: (msg) ->
-    @conslole_element.textContent = msg

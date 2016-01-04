@@ -3,8 +3,8 @@
 
 
 module.exports =
-class DataTagsView
-  constructor: (serializedState) ->
+class DescriptionView
+  constructor: () ->
     # Create root element
     @element = document.createElement('div')
     @element.classList.add('data-tags')

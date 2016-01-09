@@ -1,4 +1,4 @@
-module.exports =
+odule.exports =
 class ListView
   constructor: (items) ->
     # Create root element

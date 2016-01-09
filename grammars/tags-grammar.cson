@@ -1,8 +1,8 @@
 'scopeName': 'source.tags'
 'name': 'DataTags Grammer'
 'fileTypes': ['dg','ts']
-#'foldingStartMarker' : '\{\s*$'
-#'foldingStopMarker' : '^\s*\}'
+'foldingStartMarker' : '\[\s*$'
+'foldingStopMarker' : '^\s*\]'
 'patterns':[
   {'include' : "#line_comment"}
   {'include' : '#compoundSlot'}

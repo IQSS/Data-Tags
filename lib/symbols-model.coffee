@@ -2,7 +2,7 @@ FS = require 'fs'
 PATH = require 'path'
 {Point} = require 'atom'
 
-module.exports = class Symbols
+module.exports = class SymbolsModel
 
   constructor: ->
     @slots_symbols = []
@@ -156,7 +156,7 @@ module.exports = class Symbols
     if matched_symbol?
       matched_symbol.desc
     else
-      "There is Description for #{symbol}"
+      "There is no Description for #{symbol}"
 
   invalidate: ->
     console.log "symbols are now invalid"

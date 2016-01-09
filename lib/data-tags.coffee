@@ -15,6 +15,7 @@ module.exports = DataTags =
   activate: (state) ->
     @symbols_model = new SymbolsModel #this is the symbol index object
     @provider = new AutoComleteProvider(@symbols_model) #this is DataTags provider for autocomplete package
+    @ConsoleView =new ConsoleView(@symbols_model)
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -42,11 +43,7 @@ module.exports = DataTags =
     if (not @symbols_model.TagSpacePath?.length) and (not @symbols_model.DesicionGraphPath?.length)
       atom.notifications.addError("Invaliad Project Direcotry", dismissable: true ,detail: "Current Prjoect Direcotry doesn't contain a .TS or .DG file")
       return
-    if @ConsoleView?
-      @ConsoleView.destroy()
-      @ConsoleView=null
-    else
-      @ConsoleView =new ConsoleView(@symbols_model)
+    @ConsoleView.toggle()
 
   createNodeSymbolListView: ->
     unless @NodesSymbolsListView?

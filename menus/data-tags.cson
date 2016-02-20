@@ -20,6 +20,10 @@
           'label': 'Toggle CLI Panel'
           'command': 'data-tags:open-cli'
         }
+        {
+          'label': 'Search Nodes in Project'
+          'command': 'data-tags:show_node'
+        }
       ]
     ]
   }

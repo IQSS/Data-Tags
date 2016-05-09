@@ -21,6 +21,7 @@ module.exports = DataTags =
   serialize: ->
 
   activate: (state) ->
+    console.log "DataTags package was activated"
     @symbols_model = new SymbolsModel #this is the symbol index object
     @provider = new AutoComleteProvider(@symbols_model) #this is DataTags provider for autocomplete package
     @ConsoleView =new ConsoleView(@symbols_model)
@@ -29,12 +30,11 @@ module.exports = DataTags =
     @subscriptions = new CompositeDisposable
 
     # Register command
-    @subscriptions.add atom.commands.add 'atom-workspace',
-    {
-      'data-tags:toggle' : => @toggle()
-      'data-tags:goto' : => @gotosymbol()
-      'data-tags:show_node': => @createNodeSymbolListView().toggle()
-      'data-tags:open-cli' : =>@OpenCLIPanel()
+    @subscriptions.add atom.commands.add 'atom-workspace', {
+      'data-tags:toggle'    :=> @toggle()
+      'data-tags:goto'      :=> @gotosymbol()
+      'data-tags:show_node' :=> @createNodeSymbolListView().toggle()
+      'data-tags:open-cli'  :=> @openCLIPanel()
     }
 
     #foreach TextEditor in opended we add the following events
@@ -46,8 +46,8 @@ module.exports = DataTags =
     #each time the project root is changed then we need to re-index the symbols in the project
     @subscriptions.add atom.project.onDidChangePaths( (path)->DataTags.symbols.generateSymbolsListsInProject())
 
-  OpenCLIPanel: ->
-    console.log "CLI panel was toggeld"
+  openCLIPanel: ->
+    console.log "CLI panel was toggled"
     if (not @symbols_model.TagSpacePath?.length) and (not @symbols_model.DesicionGraphPath?.length)
       atom.notifications.addError("Invaliad Project Direcotry", dismissable: true ,detail: "Current Prjoect Direcotry doesn't contain a .TS or .DG file")
       return
@@ -60,7 +60,7 @@ module.exports = DataTags =
     @NodesSymbolsListView
 
   toggle: ->
-    console.log "DataTags was activated"
+    console.log "DataTags Package was toggled"
 
   deactivate: ->
     @DescriptionPanel.destroy()

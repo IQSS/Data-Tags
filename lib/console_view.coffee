@@ -4,10 +4,10 @@ path = require 'path'
 
 module.exports =
 class ConsoleView
-  CLI= null
+  CLI = null
   Panel = null
-  consoleElement =null
-  editor =null
+  consoleElement = null
+  editor = null
   SymbolIndexer = null
 
   constructor: (symbol_indexer) ->
@@ -37,7 +37,6 @@ class ConsoleView
     jar_path = atom.config.get('data-tags.cli_path')
 
     args=['-jar',jar_path,SymbolIndexer.TagSpacePath,SymbolIndexer.DesicionGraphPath]
-
 
     stderr = (lines) ->
       atom.notifications.addError("CLI Error", dismissable: true ,detail: lines)

@@ -1,20 +1,26 @@
 'scopeName': 'source.tags'
-'name': 'DataTags Grammer'
+'name': 'DataTags Grammar'
 'fileTypes': ['dg','ts']
 'foldingStartMarker' : '\[\s*$'
 'foldingStopMarker' : '^\s*\]'
 'patterns':[
-  {'include' : "#line_comment"}
-  {'include' : '#compoundSlot'}
-  {'include' : '#AtomicSlot'}
-  {'include' : '#multiline_comment'}
-  {'include' : '#set_node'}
-  {'include' : '#call_node'}
-  {'include' : '#ask_node'}
-  {'include' : '#end_node'}
-  {'include' : '#todo_node'}
+  {'include' : '#top_nodes'}
 ]
 'repository':
+
+  'top_nodes':
+    'patterns':[
+      {'include' : '#compoundSlot'}
+      {'include' : '#AtomicSlot'}
+      {'include' : "#comments"}
+      {'include' : '#set_node'}
+      {'include' : '#call_node'}
+      {'include' : '#ask_node'}
+      {'include' : '#end_node'}
+      {'include' : '#todo_node'}
+      {'include' : '#when_node'}
+      {'include' : '#consider_node'}
+    ]
 
   'keyword':
     'name' : 'string.other.tags'
@@ -39,10 +45,9 @@
         'name' : 'markup.italic.tags.var'
         'match' : '([A-Za-z0-9_]+)'
       }
-      {'include'  : '#multiline_comment'}
+      {'include' : "#comments"}
       {'include'  : '#note'}
     ]
-
 
   'compoundSlot':
     'name' : 'source.tags.slot.compound'
@@ -59,7 +64,7 @@
       '1':
         'name' : 'constant.character.escape.tags'
     'patterns':[
-      {'include'  : '#multiline_comment'}
+      {'include' : "#comments"}
       {
         'name' : 'entity.name.tag.tags.slot'
         'match' :  '([a-zA-Z0-9_/]+)'
@@ -79,6 +84,9 @@
         'name' : 'string.other.tags'
     'end' : '\\]'
     'contentName' : 'invalid.deprecated.tags'
+    'patterns':[
+      {'include' : "#comments"}
+    ]
 
   'ask_node':
     'name' : 'source.tags.ask_node'
@@ -92,8 +100,39 @@
     'patterns':[
       {'include' : '#text_node'}
       {'include' : '#answer_node'}
-      {'include' : '#line_comment'}
+      {'include' : "#comments"}
       {'include' : '#terms_node'}
+    ]
+
+  'when_node':
+    'name' : 'source.tags.when_node'
+    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(when)( *)(:)'
+    'beginCaptures':
+      '5':
+        'name' : 'constant.character.escape.tags'
+      '8':
+        'name' : 'string.other.tags'
+    'end' : '\\]'
+    'patterns':[
+      {'include' : '#when_option_node'}
+      {'include' : '#else_subnode'}
+      {'include' : "#comments"}
+    ]
+
+  'consider_node':
+    'name' : 'source.tags.consider_node'
+    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(consider)( *)(:)'
+    'beginCaptures':
+      '5':
+        'name' : 'constant.character.escape.tags'
+      '8':
+        'name' : 'string.other.tags'
+    'end' : '\\]'
+    'patterns':[
+      {'include' : '#slot_subnode'}
+      {'include' : '#consider_options_subnode'}
+      {'include' : '#else_subnode'}
+      {'include' : "#comments"}
     ]
 
   'end_node':
@@ -103,7 +142,7 @@
       '5':
         'name' : 'constant.character.escape.tags'
       '8':
-        'name': 'invalid.illegal.tags'
+        'name': 'string.other.tags'
 
   'todo_node':
     'name' : 'source.tags.todo_node'
@@ -115,6 +154,32 @@
         'name' : 'string.other.tags'
     'end' : '\\]'
     'contentName' : 'comment.block.tags'
+    'patterns': [{'include' : "#comments"}]
+
+
+  'set_node':
+    'name' : 'source.tags.set_node'
+    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(set)( *)(:)'
+    'beginCaptures':
+      '5':
+        'name' : 'constant.character.escape.tags'
+      '8':
+        'name' : 'string.other.tags'
+    'end' : '\\]'
+    'patterns':[
+      {'include' : '#assigment'}
+      {'include' : '#comments'}
+    ]
+
+  'call_node':
+    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(call)( *)(:)'
+    'beginCaptures':
+      '5':
+        'name' : 'constant.character.escape.tags'
+      '8':
+        'name' : 'string.other.tags'
+    'end' : '\\]'
+    'contentName' : 'declaration.section entity.name.section.tags'
 
   'terms_node':
     'name' : 'source.tags.terms_node'
@@ -124,8 +189,70 @@
         'name' : 'string.other.tags'
     'end' : '\\}'
     'patterns':[
-      {'include' : '#line_comment'}
+      {'include' : '#comments'}
       {'include' : '#term_node'}
+    ]
+
+  'when_option_node':
+      'name' : 'source.tags.when_option_node'
+      'begin' : '(\\{)( *)([a-zA-Z0-9_/]+)(\\s*)(=|\\+=)(\\s*)([a-zA-Z0-9_/]+)( *)(:)'
+      'beginCaptures':
+        '3':
+          'name' : 'variable.language.tags'
+        '7':
+          'name' : 'constant.other.tags'
+      'end' : '\\}'
+      'patterns':[
+        {'include' : '#comments'}
+        {'include' : '#top_nodes'}
+      ]
+
+  'else_subnode':
+    'name' : 'source.tags.terms_node'
+    'begin' : '(\\{)( *)(else)( *)(:)'
+    'beginCaptures':
+      '3':
+        'name' : 'string.other.tags'
+    'end' : '\\}'
+    'patterns':[
+      {'include' : '#top_nodes'}
+      {'include' : '#comments'}
+    ]
+
+  'slot_subnode':
+    'name' : 'source.tags.slot_subnode'
+    'begin' : '(\\{)( *)(slot)( *)(:)'
+    'beginCaptures':
+      '3':
+        'name' : 'string.other.tags'
+    'end' : '\\}'
+    'patterns':[
+      {'include' : '#comments'}
+      {'include' : '#variable'}
+    ]
+
+  'consider_options_subnode':
+    'name' : 'source.tags.consider_options_subnode'
+    'begin' : '(\\{)( *)(options)( *)(:)'
+    'beginCaptures':
+      '3':
+        'name' : 'string.other.tags'
+    'end' : '\\}'
+    'patterns':[
+      {'include' : '#comments'}
+      {'include' : '#consider_option_subnode'}
+    ]
+
+  'consider_option_subnode':
+    'name' : 'source.tags.consider_option_subnode'
+    'begin' : '(\\{)( *)([_a-zA-Z0-9]+)( *)(:)'
+    'beginCaptures':
+      '3':
+        'name' : 'constant.other.tags'
+    'end' : '\\}'
+    'patterns':[
+      {'include' : '#comments'}
+      {'include' : '#top_nodes'}
     ]
 
   'term_node':
@@ -141,7 +268,7 @@
           '1':
             'name' : 'string.other.tags'
       }
-      {'include' : '#line_comment'}
+      {'include' : '#comments'}
     ]
 
   'text_node':
@@ -153,9 +280,10 @@
     'end' : '\\}'
     'contentName' : 'markup.quote.tags'
     'patterns':[
-      {'include' : '#line_comment'}
+      {'include' : '#comments'}
     ]
 
+  # TODO: break into answers_subnode and answer_subnode
   'answer_node':
     'name' : 'source.tags.set_node'
     'begin' : '(\\{)( *)(answers)( *)(:)'
@@ -165,7 +293,7 @@
     'end' : '\\}'
     'patterns':[
       {'include' : '#sub_node'}
-      {'include' : '#line_comment'}
+      {'include' : '#comments'}
     ]
 
   'sub_node':
@@ -176,49 +304,22 @@
         'name' : 'support.constant.tags'
     'end' : '\\}'
     'patterns':[
-      {'include' : '#set_node'}
-      {'include' : '#line_comment'}
-      {'include' : '#todo_node'}
-      {'include' : '#call_node'}
-      {'include' : '#end_node'}
-      {'include' : '#ask_node'}
-      {'include' : '#reject_node'}
+      {'include' : '#top_nodes'}
     ]
-
-  'set_node':
-    'name' : 'source.tags.set_node'
-    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(set)( *)(:)'
-    'beginCaptures':
-      '5':
-        'name' : 'constant.character.escape.tags'
-      '8':
-        'name' : 'string.other.tags'
-    'end' : '\\]'
-    'patterns':[
-      {'include' : '#assigment'}
-    ]
-
-  'call_node':
-    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(call)( *)(:)'
-    'beginCaptures':
-      '5':
-        'name' : 'constant.character.escape.tags'
-      '8':
-        'name' : 'string.other.tags'
-    'end' : '\\]'
-    'contentName' : 'declaration.section entity.name.section.tags'
 
   'assigment':
     'name' : 'source.tags.assigment'
     'match' : '([a-zA-Z0-9_/]+)(\\s*)(=|\\+=)(\\s*)([a-zA-Z0-9_/]+)'
     'captures':
       '1':
-        'name' : 'entity.name.tag.tags.ass.left'
+        'name' : 'variable.language.default.tags'
+      '3':
+        'name' : 'keyword.operator.assignment.tags'
       '5':
-        'name' : 'markup.italic.tags.ass.right'
+        'name' : 'constant.other.tags'
 
   'variable':
-    'name' : 'markup.italic.tags.var'
+    'name' : 'variable.language.default.tags'
     'match' : '([a-zA-Z0-9_]+)'
 
   'note':
@@ -227,15 +328,19 @@
     'end': '\\]'
     'contentName' : 'source.tags.note.content'
 
-  'multiline_comment':
-    'name' : 'comment.block.tags'
-    'begin' : '<\\*'
-    'end' : '\\*>'
-
   'call_var':
     'match': '([a-zA-Z0-9_]+)'
     'name' : 'constant.character.escape.tags'
 
-  'line_comment':
-    'name' : 'comment.line.tags'
-    'match' : '(<--.*)'
+  'comments':
+    'patterns': [
+      {
+        'name' : 'comment.block.tags'
+        'begin' : '<\\*'
+        'end' : '\\*>'
+      }
+      {
+        'name' : 'comment.line.tags'
+        'match' : '(<--.*)'
+      }
+    ]

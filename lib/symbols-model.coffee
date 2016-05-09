@@ -6,17 +6,17 @@ module.exports = class SymbolsModel
 
   constructor: ->
     @slots_symbols = []
-    @nodes_symbols= []
-    @value_symbols=[]
-    @DesicionGraphPath=''
-    @TagSpacePath=''
+    @nodes_symbols = []
+    @value_symbols = []
+    @DesicionGraphPath = ''
+    @TagSpacePath = ''
     @invalid = true
     @generateSymbolsListsInProject()
 
   generateSymbolsListsInProject: ->
     @slots_symbols = []
-    @nodes_symbols= []
-    @value_symbols=[]
+    @nodes_symbols = []
+    @value_symbols = []
     project_dirs = atom.project.getDirectories()
     for dir in project_dirs
       dir_path= dir.getRealPathSync()
@@ -48,7 +48,7 @@ module.exports = class SymbolsModel
     @getAllSymbolsFromFile(filePath, grammar, text)
 
   getAllSymbolsFromFile:(path,grammar,text) ->
-    lines   = grammar.tokenizeLines(text)
+    lines = grammar.tokenizeLines(text)
     last_symbols_used= null
     for tokens, lineno in lines
       offset = 0

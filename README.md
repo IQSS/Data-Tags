@@ -12,7 +12,7 @@ This version includes:
   * Folding expressions
   * Snippets
 
-You can learn more about DataTags [here](datatags.org).
+You can learn more about DataTags [here](http://datatags.org).
 
 ---
 

@@ -1,10 +1,12 @@
 {
   "name": "language-DataTags",
   "main": "./lib/data-tags",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "DataTags support for Atom",
   "keywords": [
-    "language", "grammar", "DataTags"
+    "language",
+    "grammar",
+    "DataTags"
   ],
   "activationCommands": {
     "atom-workspace": [
@@ -12,8 +14,8 @@
     ]
   },
   "dependencies": {
-  "atom-space-pen-views": "^2.0.0",
-  "underscore-plus": "^1.0.0"
+    "atom-space-pen-views": "^2.0.0",
+    "underscore-plus": "^1.0.0"
   },
   "repository": "https://github.com/IQSS/DataTags-Atom-Package",
   "license": "MIT",
@@ -21,9 +23,9 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "providedServices": {
-  "autocomplete.provider": {
-    "versions": {
-      "2.0.0": "provide"
+    "autocomplete.provider": {
+      "versions": {
+        "2.0.0": "provide"
       }
     }
   }

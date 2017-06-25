@@ -20,6 +20,8 @@
       {'include' : '#todo_node'}
       {'include' : '#when_node'}
       {'include' : '#consider_node'}
+      {'include' : '#section_node'}
+      {'include' : '#import_node'}
     ]
 
   'keyword':
@@ -90,7 +92,7 @@
 
   'ask_node':
     'name' : 'source.tags.ask_node'
-    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(ask)( *)(:)'
+    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(ask)(\\s*)(:)'
     'beginCaptures':
       '5':
         'name' : 'constant.character.escape.tags'
@@ -180,6 +182,7 @@
         'name' : 'string.other.tags'
     'end' : '\\]'
     'contentName' : 'declaration.section entity.name.section.tags'
+    'patterns': [{'include' : "#comments"}]
 
   'terms_node':
     'name' : 'source.tags.terms_node'
@@ -192,6 +195,39 @@
       {'include' : '#comments'}
       {'include' : '#term_node'}
     ]
+
+  'section_node':
+    'name' : 'source.tags.section_node'
+    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(section)(\\s*)(:)'
+    'beginCaptures':
+      '5':
+        'name' : 'constant.character.escape.tags'
+      '8':
+        'name' : 'string.other.tags'
+    'end' : '\\]'
+    'contentName' : 'declaration.section entity.name.section.tags'
+    'patterns': [
+      {'include' : '#title_node'}
+      {'include' : "#comments"}
+      {'include' : '#top_nodes'}
+    ]
+
+  'import_node':
+    'name' : 'source.tags.import_node'
+    'begin' : '(\\[)(\\s*)(import)(\\s*)(.*)(:)(.*)'
+    'beginCaptures':
+      '3':
+        'name' : 'string.other.tags'
+      '5':
+        'name' : 'constant.character.escape.tags'
+    'end' : '\\]'
+    'contentName' : 'declaration.section entity.name.section.tags'
+    'patterns': [
+      {'include' : '#title_node'}
+      {'include' : "#comments"}
+      {'include' : '#top_nodes'}
+    ]
+
 
   'when_option_node':
       'name' : 'source.tags.when_option_node'
@@ -268,6 +304,18 @@
           '1':
             'name' : 'string.other.tags'
       }
+      {'include' : '#comments'}
+    ]
+
+  'title_node':
+    'name' : 'source.tags.title_node'
+    'begin' : '(\\{)( *)(title)( *)(:)'
+    'beginCaptures':
+      '3':
+        'name' : 'string.other.tags'
+    'end' : '\\}'
+    'contentName' : 'markup.quote.tags'
+    'patterns':[
       {'include' : '#comments'}
     ]
 

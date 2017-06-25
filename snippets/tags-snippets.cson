@@ -47,6 +47,19 @@
     'prefix': 'reject'
     'body': '[reject: $1]'
 
+  'Create Section Node':
+    'prefix' : 'section'
+    'body' : """
+      [>$1< section:
+        {title: $2}
+      ]
+      """
+
+  'Create Import':
+    'prefix' : 'import'
+    'body' : '[import $1: $2]'
+
+
   'Compound Slot Definition With Notes':
     'prefix':   'compound_slot_w_notes'
     'body':   '${1:name} [${2:note}] : consists of  ${3:slot1} , ${4:slot2} , ${5:slot3}.'

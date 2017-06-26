@@ -22,6 +22,7 @@
       {'include' : '#consider_node'}
       {'include' : '#section_node'}
       {'include' : '#import_node'}
+      {'include' : '#reject_node'}
     ]
 
   'keyword':
@@ -85,7 +86,7 @@
       '8':
         'name' : 'string.other.tags'
     'end' : '\\]'
-    'contentName' : 'invalid.deprecated.tags'
+    'contentName' : 'string.other.tags'
     'patterns':[
       {'include' : "#comments"}
     ]

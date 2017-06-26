@@ -1,11 +1,12 @@
 {
   "name": "language-DataTags",
   "main": "./lib/data-tags",
-  "version": "0.1.0",
-  "description": "DataTags support for Atom",
+  "version": "0.2.0",
+  "description": "PolicyModels support for Atom",
   "keywords": [
     "language",
     "grammar",
+    "PolicyModels",
     "DataTags"
   ],
   "activationCommands": {

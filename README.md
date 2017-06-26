@@ -1,10 +1,9 @@
-# DataTags Atom Support
+# PolicyModels* Atom Support
+
 
 ![DataTags Logo](https://github.com/IQSS/DataTaggingLibrary/raw/master/DataTagsLib/DOCS/datatags-logo-large.png)
 
-Initial support for DataTags and the Tags language, in [Atom](http://atom.io) text editor.
-
-_This package is still in beta._
+Support for PolicyModels on the [Atom](http://atom.io) text editor.
 
 This version includes:
   * Syntax Highlighting
@@ -12,8 +11,10 @@ This version includes:
   * Folding expressions
   * Snippets
 
-You can learn more about DataTags [here](http://datatags.org).
+You can learn more about DataTags and PolicyModels [here](http://datatags.org). A [PolicyModels](http://datatagginglibrary.readthedocs.io) tutorial is also available.
+
+\* Formerly: DataTags
 
 ---
 
-This project was initial implemented as part of "Topics in DataTags" class at the Computer Science department of Ben-Gurion University of the Negev, Israel.
+This project was initially implemented as part of "Topics in DataTags" class at the Computer Science department of Ben-Gurion University of the Negev, Israel.

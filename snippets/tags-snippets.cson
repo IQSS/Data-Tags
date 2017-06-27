@@ -57,7 +57,7 @@
 
   'Create Import':
     'prefix' : 'import'
-    'body' : '[import $1: $2]'
+    'body' : '[#import $1: $2]'
 
 
   'Compound Slot Definition With Notes':

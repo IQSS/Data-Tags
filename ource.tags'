@@ -1,0 +1,140 @@
+[33mcommit 75a888936219cf7409173da45df0a57743d0938a[m
+Author: Michael Bar-Sinai <mich.barsinai@gmail.com>
+Date:   Tue May 10 00:24:59 2016 +0300
+
+    Prepare 0.1.0 release
+
+[33mcommit b603593ebe6829c0eaf2faf84947a327484982af[m
+Author: Michael Bar-Sinai <mich.barsinai@gmail.com>
+Date:   Mon May 9 23:31:52 2016 +0300
+
+    Fixed link
+
+[33mcommit 949352713e3b2a64ec9418a1f544db0ef0dbbc64[m
+Author: Michael Bar-Sinai <mich.barsinai@gmail.com>
+Date:   Mon May 9 23:28:02 2016 +0300
+
+    Updated readme
+
+[33mcommit f5aaac88ff281820d0df6458c36957d2db5f044f[m
+Author: Michael Bar-Sinai <mich.barsinai@gmail.com>
+Date:   Mon May 9 23:19:47 2016 +0300
+
+    Added consider and when. Numerous cleanups
+
+[33mcommit f9f369f968688c0e73ea1066661d10b7659ae1b9[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Feb 20 13:01:45 2016 +0200
+
+    final3
+
+[33mcommit e23472c6789c08972526c5b54c253ba8646e5265[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Feb 20 13:01:27 2016 +0200
+
+    added node modules
+
+[33mcommit f34f86032ab0e94b7f12845beec16d21e80211a6[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Feb 20 12:54:07 2016 +0200
+
+    a
+
+[33mcommit a8e62d8887530e881fea2438f181af875b96f1e4[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Feb 20 12:48:37 2016 +0200
+
+    Added files via upload
+
+[33mcommit 386da85d653f827e9ff8ed268db6ddb8b1e225af[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Feb 20 12:47:07 2016 +0200
+
+    Delete console_view.coffee
+
+[33mcommit 79dd1ef16e016b7560f58ee5392d64c10011d6ac[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Feb 20 12:46:59 2016 +0200
+
+    Delete data-tags.coffee
+
+[33mcommit 4b97e74f4afbdc391be32a616e9f64ceb2691d31[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Jan 9 20:45:42 2016 +0200
+
+    Changed CLI console
+
+[33mcommit d9610d183e5407cf290951f97fd3b412b81ec641[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Jan 9 13:57:19 2016 +0200
+
+    Changed names
+
+[33mcommit ad6147b58fd392c33320ea6271459554113bafeb[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Mon Jan 4 17:33:38 2016 +0200
+
+    Added doc
+
+[33mcommit d7ccd35db3cd0489a1d066f52a5e4c0321c276ae[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Jan 2 19:51:35 2016 +0200
+
+    Added CLI panel
+
+[33mcommit 77e468d52040f53d7a3631dbee400fedf87cccaa[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Fri Jan 1 20:33:48 2016 +0200
+
+    Added node symbol list
+
+[33mcommit 9f6b40d98838fec9e69bc4be1d10dbcdef614981[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Fri Dec 25 17:20:17 2015 +0200
+
+    Added Auto-complete provider
+
+[33mcommit ff8bdccb83b5ae7647a6b685d6ff8b1f395a1413[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Thu Dec 24 20:41:59 2015 +0200
+
+    Update Show Description
+
+[33mcommit d83533055183817173dfc47b458985a6cb6a6fe9[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Dec 19 17:56:41 2015 +0200
+
+    Added Show Description
+
+[33mcommit e432b1e6e637c516dd40a698ee00ba74cad78977[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Dec 12 20:52:44 2015 +0200
+
+    goto symbol fixed goto node
+
+[33mcommit a901fc3b37eab599579d848818f7a920bd85527d[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Dec 12 20:25:38 2015 +0200
+
+    Change description
+
+[33mcommit 4be205379b95a5fa0569e19092468cb291f08d95[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Sat Dec 12 20:19:07 2015 +0200
+
+    Ident+Goto
+    
+    Added ident recognition
+    Fixed goto symbol
+
+[33mcommit 2626ee9beeaeb609ea7dfb4318a70f98c8881b14[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Fri Dec 11 13:56:49 2015 +0200
+
+    add snippest dir
+
+[33mcommit 2cba86d166183eb0446a99a2ea71166bad8e163a[m
+Author: galmam <galmam@post.bgu.ac.il>
+Date:   Fri Dec 11 13:14:01 2015 +0200
+
+    init repo

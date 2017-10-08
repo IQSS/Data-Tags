@@ -1,0 +1,112 @@
+'scopeName': 'source.tags.slots'
+'name': 'DataTags Grammar'
+'fileTypes': ['dg','ts']
+'foldingStartMarker' : '\[\s*$'
+'foldingStopMarker' : '^\s*\]'
+'patterns':[
+  {'include' : '#top_nodes'}
+]
+'repository':
+
+  'top_nodes':
+    'patterns':[
+      {'include' : '#compoundSlot'}
+      {'include' : '#AtomicSlot'}
+      {'include' : '#AggregateSlot'}
+    ]
+
+  'keyword':
+    'name' : 'string.other.tags'
+    'match' : '(some of|one of|TODO|todo)'
+
+  'AtomicSlot':
+    'name' : 'source.tags.slot.atomic'
+    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)(\\s*)(one of|TODO|todo)'
+    'beginCaptures':
+      '1':
+        'name' : 'entity.name.tag.tags.slot.def'
+      '3':
+        'name'  : 'source.tags.note.content'
+      '7':
+        'name' : 'string.other.tags.keyword'
+    'end' : '(\\.)'
+    'endCaptures':
+      '1':
+        'name' : 'constant.character.escape.tags'
+    'patterns':[
+      {
+        'name' : 'markup.italic.tags.var'
+        'match' : '([A-Za-z0-9_]+)'
+      }
+      {'include' : "#comments"}
+      {'include'  : '#note'}
+    ]
+
+  'compoundSlot':
+    'name' : 'source.tags.slot.compound'
+    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)(\\s*)(consists of)'
+    'beginCaptures':
+      '1':
+        'name' : 'entity.name.tag.tags.slot.def'
+      '3':
+        'name'  : 'source.tags.note.content'
+      '7':
+        'name' : 'string.other.tags.keyword'
+    'end' : '(\\.)'
+    'endCaptures':
+      '1':
+        'name' : 'constant.character.escape.tags'
+    'patterns':[
+      {'include' : "#comments"}
+      {
+        'name' : 'entity.name.tag.tags.slot'
+        'match' :  '([a-zA-Z0-9_/]+)'
+        'captures':
+          '1':
+            'name': 'entity.name.tag.tags.slot'
+      }
+    ]
+
+  'AggregateSlot':
+    'name' : 'source.tags.slot.aggregate'
+    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)(\\s*)(some of)'
+    'beginCaptures':
+      '1':
+        'name' : 'entity.name.tag.tags.slot.def'
+      '3':
+        'name'  : 'source.tags.note.content'
+      '7':
+        'name' : 'string.other.tags.keyword'
+    'end' : '(\\.)'
+    'endCaptures':
+      '1':
+        'name' : 'constant.character.escape.tags'
+    'patterns':[
+      {'include' : "#comments"}
+      {
+        'name' : 'entity.name.tag.tags.slot'
+        'match' :  '([a-zA-Z0-9_/]+)'
+        'captures':
+          '1':
+            'name': 'entity.name.tag.tags.slot'
+      }
+    ]
+
+    'note':
+      'name': 'source.tags.note'
+      'begin': '\\['
+      'end': '\\]'
+      'contentName' : 'source.tags.note.content'
+
+    'comments':
+      'patterns': [
+        {
+          'name' : 'comment.block.tags'
+          'begin' : '<\\*'
+          'end' : '\\*>'
+        }
+        {
+          'name' : 'comment.line.tags'
+          'match' : '(<--.*)'
+        }
+        ]

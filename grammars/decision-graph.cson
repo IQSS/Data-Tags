@@ -1,6 +1,6 @@
-'scopeName': 'source.tags'
+'scopeName': 'source.tags.graph'
 'name': 'DataTags Grammar'
-'fileTypes': ['dg','ts']
+'fileTypes': ['dg']
 'foldingStartMarker' : '\[\s*$'
 'foldingStopMarker' : '^\s*\]'
 'patterns':[
@@ -10,8 +10,6 @@
 
   'top_nodes':
     'patterns':[
-      {'include' : '#compoundSlot'}
-      {'include' : '#AtomicSlot'}
       {'include' : "#comments"}
       {'include' : '#set_node'}
       {'include' : '#call_node'}
@@ -27,55 +25,7 @@
 
   'keyword':
     'name' : 'string.other.tags'
-    'match' : '(some of|one of|TODO|todo)'
-
-  'AtomicSlot':
-    'name' : 'source.tags.slot.atomic'
-    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)(\\s*)(some of|one of|TODO|todo)'
-    'beginCaptures':
-      '1':
-        'name' : 'entity.name.tag.tags.slot.def'
-      '3':
-        'name'  : 'source.tags.note.content'
-      '7':
-        'name' : 'string.other.tags.keyword'
-    'end' : '(\\.)'
-    'endCaptures':
-      '1':
-        'name' : 'constant.character.escape.tags'
-    'patterns':[
-      {
-        'name' : 'markup.italic.tags.var'
-        'match' : '([A-Za-z0-9_]+)'
-      }
-      {'include' : "#comments"}
-      {'include'  : '#note'}
-    ]
-
-  'compoundSlot':
-    'name' : 'source.tags.slot.compound'
-    'begin' : '^([A-Za-z0-9_]+)(\\s*\\[(.*)\\]){0,1}(\\s*)(:)(\\s*)(consists of)'
-    'beginCaptures':
-      '1':
-        'name' : 'entity.name.tag.tags.slot.def'
-      '3':
-        'name'  : 'source.tags.note.content'
-      '7':
-        'name' : 'string.other.tags.keyword'
-    'end' : '(\\.)'
-    'endCaptures':
-      '1':
-        'name' : 'constant.character.escape.tags'
-    'patterns':[
-      {'include' : "#comments"}
-      {
-        'name' : 'entity.name.tag.tags.slot'
-        'match' :  '([a-zA-Z0-9_/]+)'
-        'captures':
-          '1':
-            'name': 'entity.name.tag.tags.slot'
-      }
-    ]
+    'match' : '(todo)'
 
   'reject_node':
     'name' : 'source.tags.reject_node'
@@ -370,12 +320,6 @@
   'variable':
     'name' : 'variable.language.default.tags'
     'match' : '([a-zA-Z0-9_]+)'
-
-  'note':
-    'name': 'source.tags.note'
-    'begin': '\\['
-    'end': '\\]'
-    'contentName' : 'source.tags.note.content'
 
   'call_var':
     'match': '([a-zA-Z0-9_]+)'

@@ -1,0 +1,63 @@
+'scopeName': 'source.tags.inference'
+'name': 'DataTags Grammar'
+'fileTypes': ['vi']
+'foldingStartMarker' : '\[\s*$'
+'foldingStopMarker' : '^\s*\]'
+'patterns':[
+  {'include' : '#top_nodes'}
+]
+'repository':
+
+  'top_nodes':
+    'patterns':[
+      {'include' : '#valueInferrer'}
+      {'include' : '#valueInference'}
+    ]
+
+  'valueInferrer':
+    'name' : 'source.tags.valueInferrer'
+    # 'begin' : '^(\[)([A-Za-z0-9_]+)(\s*)(:)(\s*)([A-Za-z0-9_]+)((\\[)([A-Za-z0-9_]+)\\s*=\\s*([A-Za-z0-9_]+)((\\s*;\\s*([A-Za-z0-9_]+)=([A-Za-z0-9_]+))+){0,1}(\\]))+'
+    'match' : '^(\\[)([A-Za-z0-9_]+)\\s*:\\s*([A-Za-z0-9_]+)'
+    'captures':
+      '2':
+        'name' : 'entity.name.tag.tags.slot.def'
+    'end' : '(\\])'
+
+  'valueInference':
+    'name' : 'source.tags.valueInference'
+    'match' : '^\\s*(\\[)\\s*([A-Za-z0-9_]+)\\s*=\\s*([A-Za-z0-9_]+)((\\s*;\\s*([A-Za-z0-9_]+)=([A-Za-z0-9_]+))+){0,1}\\s*(->)\\s*([A-Za-z0-9_]+)\\s*(\\])'
+    'captures':
+      '2':
+        'name'  : 'entity.name.tag.tags.slot.def'
+      '3':
+        'name'  : 'string.other.tags.keyword'
+      '6':
+        'name' : 'entity.name.tag.tags.slot.def'
+      '7':
+        'name' : 'string.other.tags.keyword'
+      '9':
+        'name' : 'markup.italic.tags.var'
+    'end' : '(\\])'
+    'patterns':[
+      {'include' : "#comments"}
+      {'include'  : '#note'}
+    ]
+
+    'note':
+      'name': 'source.tags.note'
+      'begin': '\\['
+      'end': '\\]'
+      'contentName' : 'source.tags.note.content'
+
+    'comments':
+      'patterns': [
+        {
+          'name' : 'comment.block.tags'
+          'begin' : '<\\*'
+          'end' : '\\*>'
+        }
+        {
+          'name' : 'comment.line.tags'
+          'match' : '(<--.*)'
+        }
+      ]

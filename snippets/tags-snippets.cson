@@ -1,4 +1,4 @@
-'.source.tags':
+'.source.tags.graph':
   'Create Call Node':
     'prefix': 'call'
     'body': '[call: $1]'
@@ -55,11 +55,15 @@
       ]
       """
 
+  'Comment':
+    'prefix': 'comment'
+    'body' :  '<* ${1:comment} *>'
+
   'Create Import':
     'prefix' : 'import'
     'body' : '[#import $1: $2]'
 
-
+'.source.tags.slots':
   'Compound Slot Definition With Notes':
     'prefix':   'compound_slot_w_notes'
     'body':   '${1:name} [${2:note}] : consists of  ${3:slot1} , ${4:slot2} , ${5:slot3}.'
@@ -102,3 +106,12 @@
   'Create Sub Node':
     'prefix': 'sub'
     'body' : '{${1:name} : ${2:content}}'
+
+'.source.tags.inference':
+  'Value inference':
+    'prefix': 'value_inference'
+    'body': """
+    [${1:name} : ${2:type}
+      [${3:slot}=${4:value} -> ${5:inference}]
+    ]
+    """

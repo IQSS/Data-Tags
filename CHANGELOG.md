@@ -1,3 +1,5 @@
+## 0.5.1 - Support for commas in answer texts.
+
 ## 0.5.0 - Rearchitect and New Features
 * Grammars split to policy space, decision graph, and value inferrers.
 * Support for value inferrers.

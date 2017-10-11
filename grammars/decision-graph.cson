@@ -182,7 +182,7 @@
 
   'when_option_node':
       'name' : 'source.tags.when_option_node'
-      'begin' : '(\\{)( *)([a-zA-Z0-9_/]+)(\\s*)(=|\\+=)(\\s*)([a-zA-Z0-9_/]+)( *)(:)'
+      'begin' : '(\\{)(\\s*)([a-zA-Z0-9_/]+)(\\s*)(=|\\+=)(\\s*)([a-zA-Z0-9_/,\\s*]+)(:)'
       'beginCaptures':
         '3':
           'name' : 'variable.language.tags'
@@ -297,7 +297,7 @@
 
   'sub_node':
     'name' : 'source.tags.set_node'
-    'begin' : '(\\{)([a-zA-Z0-9_,\\s*]*)(:)'
+    'begin' : '(\\{)([a-zA-Z0-9_,\\s]*)(:)'
     'beginCaptures':
       '2':
         'name' : 'support.constant.tags'
@@ -308,7 +308,7 @@
 
   'assigment':
     'name' : 'source.tags.assigment'
-    'match' : '([a-zA-Z0-9_/]+)(\\s*)(=|\\+=)(\\s*)([a-zA-Z0-9_/]+)'
+    'match' : '([a-zA-Z0-9_/]+)(\\s*)(=|\\+=)(\\s*)([a-zA-Z0-9_/,\\s]+)'
     'captures':
       '1':
         'name' : 'variable.language.default.tags'

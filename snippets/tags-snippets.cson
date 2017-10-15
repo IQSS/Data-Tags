@@ -54,6 +54,25 @@
         {title: $2}
       ]
       """
+  'Create Consider Node':
+    'prefix' : 'consider'
+    'body' : """
+    [>$1< consider:
+      {slot: $2}
+      {options: $3
+        {$4 : $5}
+      }
+    ]
+    """
+
+  'Create When Node':
+    'prefix' : 'when'
+    'body' : """
+    [>$1< when:
+      {$2 : $3}
+      {else: $4}
+    ]
+    """
 
   'Comment':
     'prefix': 'comment'

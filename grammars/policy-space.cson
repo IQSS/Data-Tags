@@ -1,5 +1,5 @@
 'scopeName': 'source.tags.slots'
-'name': 'DataTags Grammar'
+'name': 'PolicyModels Policy Space'
 'fileTypes': ['dg','ts']
 'foldingStartMarker' : '\[\s*$'
 'foldingStopMarker' : '^\s*\]'

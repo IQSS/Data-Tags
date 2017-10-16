@@ -1,5 +1,5 @@
 'scopeName': 'source.tags.inference'
-'name': 'DataTags Grammar'
+'name': 'PolicyModels Value Inferrers'
 'fileTypes': ['vi']
 'foldingStartMarker' : '\[\s*$'
 'foldingStopMarker' : '^\s*\]'

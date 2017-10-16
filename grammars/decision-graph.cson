@@ -1,5 +1,5 @@
 'scopeName': 'source.tags.graph'
-'name': 'DataTags Grammar'
+'name': 'PolicyModels Decision Graph'
 'fileTypes': ['dg']
 'foldingStartMarker' : '\[\s*$'
 'foldingStopMarker' : '^\s*\]'

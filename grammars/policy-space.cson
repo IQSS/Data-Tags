@@ -1,6 +1,6 @@
 'scopeName': 'source.tags.slots'
 'name': 'PolicyModels Policy Space'
-'fileTypes': ['dg','ts']
+'fileTypes': ['pspace','ts','ps']
 'foldingStartMarker' : '\[\s*$'
 'foldingStopMarker' : '^\s*\]'
 'patterns':[

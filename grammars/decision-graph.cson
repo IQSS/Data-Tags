@@ -1,6 +1,6 @@
 'scopeName': 'source.tags.graph'
 'name': 'PolicyModels Decision Graph'
-'fileTypes': ['dg']
+'fileTypes': ['dg', 'dgraph']
 'foldingStartMarker' : '\[\s*$'
 'foldingStopMarker' : '^\s*\]'
 'patterns':[

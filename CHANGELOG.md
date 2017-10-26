@@ -1,3 +1,9 @@
+## 0.6.1 - Further Improvements to the Grammars
+
+* Answers coloring matches the language definition.
+
+## 0.6.0 - Updated Grammar Names
+
 ## 0.5.1 - Support for commas in answer texts.
 
 ## 0.5.0 - Rearchitect and New Features

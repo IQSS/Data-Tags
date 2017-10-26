@@ -301,7 +301,7 @@
 
   'sub_node':
     'name' : 'source.tags.set_node'
-    'begin' : '(\\{)([a-zA-Z0-9_,\\s]*)(:)'
+    'begin' : '(\\{)([^:]*)(:)'
     'beginCaptures':
       '2':
         'name' : 'support.constant.tags'

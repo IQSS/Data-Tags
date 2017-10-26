@@ -10,6 +10,7 @@
 
   'top_nodes':
     'patterns':[
+      {'include' : '#comments'}
       {'include' : '#compoundSlot'}
       {'include' : '#AtomicSlot'}
       {'include' : '#AggregateSlot'}
@@ -92,21 +93,21 @@
       }
     ]
 
-    'note':
-      'name': 'source.tags.note'
-      'begin': '\\['
-      'end': '\\]'
-      'contentName' : 'source.tags.note.content'
+  'note':
+    'name': 'source.tags.note'
+    'begin': '\\['
+    'end': '\\]'
+    'contentName' : 'source.tags.note.string.content'
 
-    'comments':
-      'patterns': [
-        {
-          'name' : 'comment.block.tags'
-          'begin' : '<\\*'
-          'end' : '\\*>'
-        }
-        {
-          'name' : 'comment.line.tags'
-          'match' : '(<--.*)'
-        }
-        ]
+  'comments':
+    'patterns': [
+      {
+        'name' : 'comment.block.tags'
+        'begin' : '<\\*'
+        'end' : '\\*>'
+      }
+      {
+        'name' : 'comment.line.tags'
+        'match' : '(<--.*)'
+      }
+      ]

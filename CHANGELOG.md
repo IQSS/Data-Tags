@@ -1,6 +1,6 @@
-## 0.6.1 - Further Improvements to the Grammars
-
+## 0.6.x - Further Improvements to the Grammars
 * Answers coloring matches the language definition.
+* Better note text detection.
 
 ## 0.6.0 - Updated Grammar Names
 

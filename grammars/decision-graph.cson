@@ -19,6 +19,7 @@
       {'include' : '#when_node'}
       {'include' : '#consider_node'}
       {'include' : '#section_node'}
+      {'include' : '#continue_node'}
       {'include' : '#import_node'}
       {'include' : '#reject_node'}
     ]
@@ -162,6 +163,16 @@
       {'include' : "#comments"}
       {'include' : '#top_nodes'}
     ]
+
+  'continue_node':
+    'name':'source.tags.continue_node'
+    'begin' : '(\\[)(\\s*)((>)(.*)(<)){0,1}(\\s*)(continue)(\\s*)'
+    'beginCaptures':
+      '5':
+        'name' : 'constant.character.escape.tags'
+      '8':
+        'name' : 'string.other.tags'
+    'end' : '\\]'
 
   'import_node':
     'name' : 'source.tags.import_node'

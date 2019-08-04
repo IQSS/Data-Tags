@@ -1,4 +1,7 @@
-## 0.6.x - Further Improvements to the Grammars
+## 0.6.4
+* Support for the `[continue]` node.
+
+## 0.6.3 - Further Improvements to the Grammars
 * Answers coloring matches the language definition.
 * Better note text detection.
 
